@@ -118,10 +118,16 @@ class WheelView @JvmOverloads constructor(
             if (n > 1) canvas.drawArc(arcRect, start, sweep, true, dividerPaint)
 
             val label = TextUtils.ellipsize(items[i], textPaint, textMax, TextUtils.TruncateAt.END)
+            val mid = start + sweep / 2f
+            val midNorm = ((mid % 360f) + 360f) % 360f
+            // Keep labels upright: on the left half, flip them and read from the rim inwards.
+            val flip = midNorm > 90f && midNorm < 270f
             canvas.save()
-            canvas.rotate(start + sweep / 2f, cx, cy)
+            canvas.rotate(if (flip) mid + 180f else mid, cx, cy)
             val baseline = cy - (textPaint.descent() + textPaint.ascent()) / 2f
-            canvas.drawText(label, 0, label.length, cx + r * 0.88f, baseline, textPaint)
+            textPaint.textAlign = if (flip) Paint.Align.LEFT else Paint.Align.RIGHT
+            val x = if (flip) cx - r * 0.88f else cx + r * 0.88f
+            canvas.drawText(label, 0, label.length, x, baseline, textPaint)
             canvas.restore()
         }
 

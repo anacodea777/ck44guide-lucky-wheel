@@ -1,7 +1,13 @@
 package com.vongquay.luckywheel
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.HapticFeedbackConstants
 import android.view.Menu
 import android.view.MenuItem
@@ -55,9 +61,14 @@ class MainActivity : AppCompatActivity() {
         resultText.text = getString(R.string.result_line, item)
         wheel.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 
+        val message = SpannableString(item).apply {
+            setSpan(RelativeSizeSpan(1.8f), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(StyleSpan(Typeface.BOLD), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(ForegroundColorSpan(0xFF6A1B9A.toInt()), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.result_title)
-            .setMessage(item)
+            .setMessage(message)
             .setPositiveButton(R.string.ok, null)
             .setNeutralButton(R.string.remove_item) { _, _ -> removeItem(index) }
             .show()

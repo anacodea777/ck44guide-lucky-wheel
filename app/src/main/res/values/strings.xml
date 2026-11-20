@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lucky Wheel</string>
+    <string name="app_name">CK44GUIDE Lucky Wheel</string>
     <string name="spin">SPIN</string>
     <string name="spinning">Spinning…</string>
     <string name="hint">Tap SPIN or the wheel to start</string>
@@ -16,7 +16,7 @@
     <string name="too_many">You can add up to %1$d items</string>
     <string name="language">Language</string>
     <string name="reset">Reset to defaults</string>
-    <string name="wheel_description">Lucky wheel. Tap to spin.</string>
+    <string name="wheel_description">CK44GUIDE Lucky Wheel. Tap to spin.</string>
 
     <!-- Language names stay in their own language. -->
     <string name="lang_english" translatable="false">English</string>

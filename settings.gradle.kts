@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VongQuayMayMan"
+rootProject.name = "CK44GuideLuckyWheel"
 include(":app")

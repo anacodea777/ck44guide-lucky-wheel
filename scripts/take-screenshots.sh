@@ -56,8 +56,15 @@ shot 02_spinning_en 1.3
 shot 03_result_en 7
 adb shell input keyevent KEYCODE_BACK
 
-tap action_edit "Edit items"
-shot 04_edit_items_en 2
+sleep 2
+for attempt in 1 2 3; do
+  tap action_edit "Edit items"
+  sleep 2
+  adb shell uiautomator dump /sdcard/ui.xml >/dev/null
+  if adb shell cat /sdcard/ui.xml | grep -q "$PKG:id/itemsInput"; then break; fi
+  echo "edit dialog not open yet (attempt $attempt)"
+done
+shot 04_edit_items_en 1
 adb shell input keyevent KEYCODE_BACK
 sleep 1
 adb shell input keyevent KEYCODE_BACK 2>/dev/null || true

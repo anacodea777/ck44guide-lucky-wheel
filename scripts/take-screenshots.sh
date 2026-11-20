@@ -29,13 +29,20 @@ shot() { sleep "${2:-1}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "saved
 
 # Tap the centre of the view with the given resource id (or content-desc as fallback).
 tap() {
-  adb shell uiautomator dump /sdcard/ui.xml >/dev/null
-  adb shell cat /sdcard/ui.xml > /tmp/ui.xml
-  local node
-  node=$(grep -o "<node [^>]*resource-id=\"$PKG:id/$1\"[^>]*>" /tmp/ui.xml | head -1 || true)
-  if [ -z "$node" ] && [ -n "${2:-}" ]; then
-    node=$(grep -o "<node [^>]*content-desc=\"$2\"[^>]*>" /tmp/ui.xml | head -1 || true)
-  fi
+  local node="" try
+  for try in 1 2 3 4 5 6; do
+    adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || true
+    adb shell cat /sdcard/ui.xml > /tmp/ui.xml 2>/dev/null || true
+    node=$(grep -o "<node [^>]*resource-id=\"$PKG:id/$1\"[^>]*>" /tmp/ui.xml | head -1 || true)
+    if [ -z "$node" ] && [ -n "${2:-}" ]; then
+      node=$(grep -o "<node [^>]*content-desc=\"$2\"[^>]*>" /tmp/ui.xml | head -1 || true)
+    fi
+    [ -n "$node" ] && break
+    echo "view $1 not found (try $try), waiting"
+    # Dismiss a possible system "not responding" dialog by waiting it out.
+    grep -o 'text="Wait"' /tmp/ui.xml >/dev/null && adb shell input keyevent KEYCODE_ENTER || true
+    sleep 3
+  done
   if [ -z "$node" ]; then echo "view $1 not found"; return 1; fi
   read -r x1 y1 x2 y2 < <(echo "$node" | sed -E 's/.*bounds="\[([0-9]+),([0-9]+)\]\[([0-9]+),([0-9]+)\]".*/\1 \2 \3 \4/')
   adb shell input tap $(( (x1 + x2) / 2 )) $(( (y1 + y2) / 2 ))

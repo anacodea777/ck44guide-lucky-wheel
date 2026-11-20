@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lucky Wheel</string>
+    <string name="spin">SPIN</string>
+    <string name="spinning">Spinning…</string>
+    <string name="hint">Tap SPIN or the wheel to start</string>
+    <string name="result_title">The wheel says</string>
+    <string name="result_line">🎉 %1$s</string>
+    <string name="ok">OK</string>
+    <string name="remove_item">Remove it</string>
+    <string name="edit_items">Edit items</string>
+    <string name="edit_hint">One item per line</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="need_two">Please enter at least 2 items</string>
+    <string name="too_many">You can add up to %1$d items</string>
+    <string name="language">Language</string>
+    <string name="reset">Reset to defaults</string>
+    <string name="wheel_description">Lucky wheel. Tap to spin.</string>
+
+    <!-- Language names stay in their own language. -->
+    <string name="lang_english" translatable="false">English</string>
+    <string name="lang_bengali" translatable="false">বাংলা</string>
+
+    <string-array name="default_items">
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Biryani</item>
+        <item>Noodles</item>
+        <item>Salad</item>
+        <item>Ice cream</item>
+        <item>Fried rice</item>
+        <item>Sandwich</item>
+    </string-array>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/edit_items"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_language"
+        android:title="@string/language"
+        app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <!-- Language names are shown in their own language on purpose. -->
+                <item
+                    android:id="@+id/lang_en"
+                    android:title="@string/lang_english" />
+                <item
+                    android:id="@+id/lang_bn"
+                    android:title="@string/lang_bengali" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_reset"
+        android:title="@string/reset"
+        app:showAsAction="never" />
+</menu>
